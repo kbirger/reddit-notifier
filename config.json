@@ -1,0 +1,19 @@
+{
+  "pushbullet": {
+    "apiKey": "",
+    "deviceId": "",
+    "encryptionKeyBase64": ""
+  },
+  "monitor": {
+    "subreddit": "test",
+    "matches": {
+      "title": {
+        "any": [
+          {
+            "matches": "^reddit-notifier"
+          }
+        ]
+      }
+    }
+  }
+}
