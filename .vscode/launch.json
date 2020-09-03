@@ -1,0 +1,57 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Current TS File",
+      "type": "node",
+      "request": "launch",
+      "args": [
+        "${relativeFile}"
+      ],
+      "runtimeArgs": [
+        "--nolazy",
+        "-r",
+        "ts-node/register"
+      ],
+      "sourceMaps": true,
+      "cwd": "${workspaceFolder}",
+      "outFiles": [
+        "${workspaceFolder}\\**\\*.ts"
+      ],
+      "skipFiles": [
+        "node_modules/**",
+        "<node_internals>/**"
+      ],
+      "stopOnEntry": true,
+      "console": "integratedTerminal",
+      "protocol": "inspector"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Jest Current File",
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "env": {
+        "TS_NODE_CACHE": "false"
+      },
+      "args": [
+        "${fileBasenameNoExtension}"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "disableOptimisticBPs": true,
+      "smartStep": true,
+      "skipFiles": [
+        "<node_internals>/**/*.js",
+        "<node_internals>/**",
+        // "${workspaceRoot}/node_modules/**/*.js"
+      ],
+      "windows": {
+        "program": "${workspaceFolder}/node_modules/jest/bin/jest",
+      }
+    },
+  ]
+}
