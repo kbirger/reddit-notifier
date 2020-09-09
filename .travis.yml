@@ -10,20 +10,11 @@ script:
 after_success:
 - npm pack
 deploy:
-# - provider: releases
-#   api_key:
-#     secure: VQRoqHmsmyk/O8uvihgjs4hTCJLERFFbCEHvZmpna/KxRjLsM6x0a/pk6jt2Ny4tb+ynlEzYErjuPlj8jf5K40icsfnuvJ6fcPzBRnNI6RO9eM2j0ZZ1sml5nka//wqmQRe4rHkGf2Ryz1B4v/Tmx6zkrhU1WE6fUgVRnH6g+dGAUloFE2WTBYUE4/NYZngXNlUUiMzdhz/ulao+qWwJIqhjWjdh5joymMl63Vy+2zMnDaCSpSkQy+5c5UG4UK14X26OOGIqBS4hLLGoI6BtsBMCsgMqqKSW2H5cLgj79n20I7zs7DYvqDkCsEG6y4xAkgt0dG5zKVqYlkmwFwU6BIyZD3jNl8Lxspgt+YFOE1qq6A3TtUuqrayNx2tWNWEwV3vr6+6Sry5X6Oqwe/DZdM7VHgI3ukBTrQoJ1ZbT0bLlJPF7BHwNWYR0bhVscdOSmikCD1aQ+o9kPrzK8y9F5zkq4WkgEbyoldiktiCBWU84pKZetpjCvBJu4ALCMvTUpU8iw0PaB70RLxppNEHALQJOvL8PHJ7g/qQhtDUOkUSDgyt80ar52noIm41DsXQpsUUpkRVn1enIVNeRsTyj4Ch9BdzKJM4lH3fCV4zJHBtCfqtFw+ka7y5hGkAHpYqMdDnOHBQmRN7IjfqSJRrHB7kS3m/hRukm8VgjIAEpMrE=
-#   file: reddit-notifier-*.tgz
-#   on:
-#     branch: master
-#     tags: true
-#   skip_cleanup: 'true'  
-- provider: npm
+  provider: npm
   email: kbirger@gmail.com
   api_key:
-    secure: "bl3UityDCX9crsm7C5rkyx7bCtPxUg0GuOJK4R+lM2NijqZFSKs5kE/4LCILKNNd77geY/lJx+bvMOZunKqPoxfcUVlafxzD3pAjcIfj/mpAn4hZ/rEbSWMOp8kdr3pUmdLE5NkKlP0BYgmFduq2+DyGYUCtQZ3FdvjlrDpRAKnDwA80MdAEURLctesvoSc1YT8oQ0b9huw01IFwujm3mCnWcS4rUJ3fHk+s2L0lSTfz+qU+nt0FpBr5N/w2AWCgtRGUpmTyELLpxaMuJB2xNL1JsQcQfS8+N4E9QApkSjo3SGB8aZ3+sgMZOvhM/VkQUvH1Z3An4Bo0/vckWai7VtpOQqCeC2A2PJFaWNP39yk0QFnTs65dtff5wf9j1mNrRyqLb8jE6qd9X/VSDI/Df9MkCEBGYExqqaQzCnec3a9WAPVs/uTYcv8IVisRKW8TtIiUkifjpjaGHgLWZc5h21Qpvgcg0TqJApuJrSC//bYD6M3TQqrPZP2JcjEj1Z9RMpBZo/C7RuQI5wON+Yg+pPbd9SM96YprIhn8ay/bgEtLRxE1fdPSW/uY+0mFQL0AONvMwuWuHrzfNse576+Ir1f0jldQTWwu8RgrwCtEpiELKmGowR0CRzsg/KGeTiE0PcSxto86Lb82Z2l8VU4HnJV8Omo7nopddsvA88L7PBA="
-
+    secure: dO2KMWqiCm+CSVvvbdvizLnKr70g/etkeC5xU19dttcvp9bWUMwayUXx0jeX/Z7ok1aXskPv1qhtsJtm9auk9+WvCiIUP8AvfCjCrnAN8MuYxXBBuetRL+99RvkJr/frBqoeO2OgKi/uRrwqld1bkX4rhBuEBXHBRbMpQokDmKt+ikYFLl0ZG+S5gPlykA1HjNMI72SgEQld0zYRDQmLBUQ0Tc4KAY2HARbYvzEVdzMOfRBVc7vUHcKqJ+9ZdsCSHKsKLoAB5dV9c9M/fQYAYJ0bU2h/HY7Nbo/F2s5bgQAT0vJPNd+xe83zPVuNTEbFrETotPO9qE7BxJ1JYX40iyilWjh1ymLvIuGbOfWyBKq/dofDTETptYAGflQ+GMedpmHZE8ygYY1WiP4r8jOF7H2IBcWfjmZHOOS4dvxX0wYzuK0PtZkZNMQj/lcX0ZYVte4HSYixsTTPbxhxZFNBJKWrWWc1nxjLBWdTUwFkcsXcENgCapNSAPCKGwzv2PZa+Q+tqatfCW/cSc5VgxHehCFp3QAKlAPkU0D7eQQtbxYwBgDpOkxZA27qxr7vV8WvmnK2UXLrYmyTtCBoqul4uGITU1zVXbuklDJZBoE83qHmYT5kr8P+uXyN+18BJV4baRAoS8T2HOrCAT0t/uovcNocZ2OOmW4GorOFZBnHhSk=
   on:
-    branch: master
     tags: true
-  skip_cleanup: true
+    repo: kbirger/reddit-notifier
+  skip_cleanup: 'true'
