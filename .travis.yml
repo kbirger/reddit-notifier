@@ -25,4 +25,4 @@ deploy:
       repo: kbirger/reddit-notifier
       branch: master
       tags: true
-  skip_cleanup: 'true'
+      skip_cleanup: 'true'
