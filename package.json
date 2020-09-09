@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node index.js | bunyan -o short",
     "clean": "rimraf dist",
+    "lint": "echo no lint yet",
     "build": "tsc",
     "test": "jest"
   },
