@@ -17,6 +17,7 @@ deploy:
     on:
       tags: true
       repo: kbirger/reddit-notifier
+    skip_cleanup: 'true'
   - provider: releases
     api_key:
       secure: lECaV/sEFhmtbXiAgejKe1FLTyLaVR0gNo6BwxaX2dSYeOTcQyZa/A3ScE6jeQm7IgbNP+Eux6cf8Rj/3ZSIqHLSKuo0BTPUKUFXinyNYLLlh5DuUGHkjnJPOAuz9Bjl+h2n84VbqdchTune9brkCgGljU7qLZmAPZ6i82vV8Z4JVOaftLXq4ucRQ5HbweGbEQonC6zCosE9KPvMCvXvsXcR9YpVpw6DDwXdPc6FJudkqO9AGDFwbUVDqNkeOacIdYISB0xMVd2NPAILM2oOQq6V1mUxImtDxD1yp+iICqo6lraEmgk9uUR6/fPEVOxnCkbhwhN/7bavBHY4RxJydu1b4FCOdZ+GlhcvPxoXfaMF8Fb3U4bEhlQx4MDkgiJO/5ayFDKs38qZjlbChSqFRXP/gsayaDuj47YWIm3zFRCGxOxPE7Lab9bqMWc2jQxNBSwOWmFTb8D/jqZ5SV2rZiKhghR0LRoTmjc6SVOiiPVoIoZkXhfjtqpyXgYdYGHyq3rBsuxlatNrZAOc5JUUwRwlAGSbdQb9FY06sw+KEkyyzljTtTGIaB1jtiEQiyGoRN/McuQc6Rva0eW4Cfuz2z9Jd+35fU5cOnxymwMsCiFKodFZoRR1Cbl+LwbncYzvHkYKDZKyscvgGQTxfoN1a1gn42xZWNZzeavaRlFH/Jc=
@@ -25,4 +26,4 @@ deploy:
       repo: kbirger/reddit-notifier
       branch: master
       tags: true
-      skip_cleanup: 'true'
+    skip_cleanup: 'true'
