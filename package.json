@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node index.js | bunyan -o short",
     "clean": "rimraf dist",
+    "coveralls": "cat coverage/lcov.info | node_modules/.bin/coveralls",
     "lint": "echo no lint yet",
     "build": "tsc",
     "test": "jest"
@@ -33,6 +34,7 @@
     "@types/jest": "^26.0.13",
     "@types/node": "^14.6.2",
     "@types/shelljs": "^0.8.8",
+    "coveralls": "^3.1.0",
     "jest": "^26.4.2",
     "jest-stare": "^2.2.0",
     "rimraf": "^3.0.2",
