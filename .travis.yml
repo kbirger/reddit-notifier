@@ -1,0 +1,29 @@
+language: node_js
+node_js:
+- '12.13'
+before_script:
+- npm run lint
+- npm run build
+script:
+- npm test -- --coverage
+- npm run coveralls
+after_success:
+- npm pack
+deploy:
+- provider: releases
+  api_key:
+    secure: VOVUNgIEzbVVXxWrsAuy7pXxhWzUAGy1wYYBwmpMetdK6WB8cD9WrWi8P575MDSY5KrjRM2LRZlemsLSwGGtyLxG3NAYuG52Qf3eG2mnzfKliYSmQSQBNEXTg5FsLXz7e2Eob6aZm5X1ZdPE5urJVhj4JharKXRADOqu/SjYN1rrAV3MSdYOCXp4SujtYCUPyGqOePfqPfTzE2IfhQ+5nMGHYYCdHoT4QtqsWewp04le8NZGq+3gygxFddDH7hDhDAoEsGiAlxggmWvK/0ulcskl8UQGFuFnYlAzIorPhoD88tKfjvtYqMPXW338zDdaloNc6+LeMIKZS9ahyCXv6JxQkKo/IPgi75H9GOWemq2KMub1HPplrO0BDBHONe6QT52S7yc9knf1JHGcWeMRHxXfRmmXCwq/Uqg2pIvzU5TR4BMeT3C6mLsZXEeIBYGp2qWA2cSz0aPiv1vRe8bdBBEcR/+/LhFbpGV0HHyyXPePn+wrC3LOJDssWi0Ei2wh41N4Lh1ANuwShaGQJIXCVIgaGZ6ur3zw7FRauCTjpuZfXGn6vAmMDx46g4keI+ypB/xg28tU7seMmqXpD7ym2fGSAl5uGS5QrvuLPGjKfiEKeUj8o5QlHYNdcedrWm2tBUoHvdVYLqvdnWlem+a99VG3Y9rN+rP5GTGbtxgU7pk=
+  file: reddit-notifier-*.tgz
+  on:
+    branch: master
+    tags: true
+  skip_cleanup: 'true'  
+- provider: npm
+  email: kbirger@gmail.com
+  api_key:
+    secure: W3LqUeaKxZ+eAcM08g001g4UxQNfVRLIbkivMQITbp0cbj957Z/lAZ50a9CSZyYlAvEVXWugvvZiWgL1eqWTw+1ZjFBDlF5w/dkhOG7yn5dZr1IXw7Oq5KFVMq37QPVautHCrK15ro99mhVLu+kF2oXyqa9GjzjYEiSyqwRt+uu14QtmvT0tqiSOxCcAvBp/QTbXAkFloPSHrBybKzatu3ItEluXqeKT0//nPNv4qY4wiYGbpCIzUoi+o1es5Go1aQB7ZgjfVkhjf0B+p4Iro5fH8eLWx1aJS2Xo+PduxWJ86NBQgb1SPDbMl+fm3eGSNi/KqDhsULyEXm2prhmCXHRQnX1/EBj3W4Or+kPjT1XrHEthoaczptQgAk466JaSqgxMAUTJuSzPP9ANMqO6t+7E1E1VfRWWTsObhwgBgoFAi89r4t4Ut8tm/TrV3D1l6RrpUoVQWMoOqWqTaetBqeyynfZDp9uLyYnZthU4f4NorS/DekzrltR5Ux2IRp6B1kX9uvpfeP8Soq6X/arJVX4A+GLopIaqRZdzjcPQP49chPTaIiWawk6BOYWIvbqC3uvdxk2QVME/yky9864vVDYa6p7CUs3EVd6K7vngPnIZqcH8dqTlv4dt2SQCT5duXzX1uL3abi+CTTpnJBvM0iDmGjiTKs5K/91APnqT9O8=
+
+  on:
+    branch: master
+    tags: true
+  skip_cleanup: true
