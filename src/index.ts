@@ -1,3 +1,4 @@
+#!bin/bash
 import * as daemon from './daemon';
 import { PushbulletNotifier } from './pushbullet-notifier';
 import { AlertTracker } from './alert-tracker';
