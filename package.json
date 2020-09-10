@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "bin": {
-    "reddit-notifier": "./start.sh"
+    "reddit-notifier": "dist/index.js"
   },
   "scripts": {
     "start": "node index.js | bunyan -o short",
