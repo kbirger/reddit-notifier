@@ -17,7 +17,7 @@ interface FieldMatchSpecClauseEQ {
 
 
 function isString(clause: FieldMatchSpecClause): clause is FieldMatchSpecClauseString {
-  return clause.matches !== undefined
+  return clause.matches !== undefined;
 }
 
 function isGT(clause: FieldMatchSpecClause): clause is FieldMatchSpecClauseGT {
@@ -37,7 +37,7 @@ function isValid(clause: FieldMatchSpecClause): boolean {
     .reduce((acc, value) => value === true ? acc + 1 : acc, 0) >= 1;
 }
 
-export function matchPost(post: PostJson, config: MatchSpec) {
+export function matchPost(post: PostJson, config: MatchSpec): boolean {
   for (const matchField of Object.keys(config)) {
     const value = post[matchField];
     const matchSpec = config[matchField];
@@ -48,7 +48,7 @@ export function matchPost(post: PostJson, config: MatchSpec) {
 
   return true;
 }
-export function hasMatch(value: any, matchSpec: FieldMatchSpec): boolean {
+export function hasMatch(value: unknown, matchSpec: FieldMatchSpec): boolean {
   for (const noneItem of matchSpec.none ?? []) {
     if (itemMatches(value, noneItem)) {
       return false;
@@ -65,7 +65,7 @@ export function hasMatch(value: any, matchSpec: FieldMatchSpec): boolean {
 }
 
 const NA = Symbol.for('N/A');
-function itemMatchesString(value: any, clause: FieldMatchSpecClause) {
+function itemMatchesString(value: unknown, clause: FieldMatchSpecClause) {
   if (isString(clause)) {
     if (typeof value !== 'string') {
       throw new Error(`String expected for value. Got: ${value}`);
@@ -76,7 +76,7 @@ function itemMatchesString(value: any, clause: FieldMatchSpecClause) {
   return NA;
 }
 
-function itemMatchesGT(value: any, clause: FieldMatchSpecClause) {
+function itemMatchesGT(value: unknown, clause: FieldMatchSpecClause) {
   if (isGT(clause)) {
     if (typeof value !== 'number') {
       throw new Error(`Number expected for value. Got: ${value}`);
@@ -88,7 +88,7 @@ function itemMatchesGT(value: any, clause: FieldMatchSpecClause) {
 
   return NA;
 }
-function itemMatchesLT(value: any, clause: FieldMatchSpecClause) {
+function itemMatchesLT(value: unknown, clause: FieldMatchSpecClause) {
   if (isLT(clause)) {
     if (typeof value !== 'number') {
       throw new Error(`Number expected for value. Got: ${value}`);
@@ -101,7 +101,7 @@ function itemMatchesLT(value: any, clause: FieldMatchSpecClause) {
   return NA;
 }
 
-function itemMatchesEQ(value: any, clause: FieldMatchSpecClause) {
+function itemMatchesEQ(value: unknown, clause: FieldMatchSpecClause) {
   if (isEQ(clause)) {
     // if (typeof value !== 'number') {
     //   throw new Error(`Number expected for value. Got: ${value}`);
@@ -114,7 +114,7 @@ function itemMatchesEQ(value: any, clause: FieldMatchSpecClause) {
   return NA;
 }
 
-function numMatches(value: any, clause: FieldMatchSpecClause): number {
+function numMatches(value: unknown, clause: FieldMatchSpecClause): number {
   if (!isValid(clause)) {
     throw new Error(`Matcher: '${clause}' is not valid`);
   }
@@ -128,6 +128,6 @@ function numMatches(value: any, clause: FieldMatchSpecClause): number {
   return numMatch;
 }
 
-function itemMatches(value: any, clause: FieldMatchSpecClause) {
+function itemMatches(value: unknown, clause: FieldMatchSpecClause) {
   return numMatches(value, clause) === 4;
 }

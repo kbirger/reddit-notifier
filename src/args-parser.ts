@@ -12,7 +12,12 @@ program
     path.join(getHome(), '.reddit-notifier', 'data'))
   .option('-t, --test', 'do not push anything, only log', false);
 
-export function parseArguments(args?: any) {
+interface CommandlineArguments {
+  configFile: string;
+  dataDir: string;
+  test: boolean;
+}
+export function parseArguments(args?: string[]): CommandlineArguments {
   args = args ?? process.argv;
   program.parse(args);
   return {
@@ -33,6 +38,6 @@ function readPackageVersion() {
 
     return data.version;
   } catch {
-    return '0.0.0'
+    return '0.0.0';
   }
 }

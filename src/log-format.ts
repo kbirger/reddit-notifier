@@ -10,7 +10,7 @@ export const consoleFormat = winston.format(info => {
   });
 
   let stringifiedRest = '';
-  for (const [key, value] of Object.entries<any>(restData)) {
+  for (const [key, value] of Object.entries<unknown>(restData)) {
     if (value === undefined) {
       continue;
     }
