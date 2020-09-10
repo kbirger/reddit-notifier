@@ -1,7 +1,7 @@
 import RedditStream from 'reddit-stream';
-import Logger from 'bunyan';
 import { IPushbulletNotifier, IAlertTracker, MonitorConfiguration, PostJson } from './interfaces';
 import { hasMatch, matchPost } from './matcher';
+import { Logger } from 'winston';
 
 export class Monitor {
   private stream: any;

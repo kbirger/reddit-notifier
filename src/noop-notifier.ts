@@ -1,5 +1,5 @@
 import { IPushbulletNotifier } from './interfaces';
-import Logger from 'bunyan';
+import { Logger } from 'winston';
 
 export class NoopNotifier implements IPushbulletNotifier {
   constructor(private readonly logger: Logger) { }
