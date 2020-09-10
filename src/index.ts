@@ -2,31 +2,45 @@ import * as daemon from './daemon';
 import { PushbulletNotifier } from './pushbullet-notifier';
 import { AlertTracker } from './alert-tracker';
 import { Monitor } from './monitor';
-import * as bunyan from 'bunyan';
 import * as c from './constants';
 import { readConfig, ensureConfigExists } from './config-reader';
 import { parseArguments } from './args-parser';
 import { NoopNotifier } from './noop-notifier';
 import { mkdir } from 'shelljs';
-import * as path from 'path';
-
+import * as winston from 'winston';
+import 'winston-daily-rotate-file';
+import path from 'path';
+import { consoleFormat } from './log-format';
 const args = parseArguments(process.argv);
-const logger = bunyan.createLogger({
-  name: c.ApplicationName,
-  streams: [
-    {
-      level: 'trace',
-      stream: process.stdout
-    },
-    {
-      type: 'rotating-file',
-      period: '1d',
-      count: 3,
-      level: 'trace',
-      path: path.join(args.dataDir, 'reddit-notifier.log')
-    }
-  ]
+
+
+
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.combine(
+    winston.format.errors({ stack: true }),
+    winston.format.splat(),
+  ),
+  transports: [
+    new winston.transports.DailyRotateFile({
+      filename: path.join(args.dataDir, 'reddit-notifier-%DATE%.log'),
+      datePattern: 'YYYY-MM-DD',
+      maxSize: '1m',
+      maxFiles: '3d',
+      format: winston.format.combine(
+        winston.format.json(),
+        winston.format.timestamp(),
+      )
+    }),
+    new winston.transports.Console({
+      format: winston.format.combine(
+        winston.format.colorize(),
+        consoleFormat()
+      )
+    })
+  ],
 });
+
 logger.info('Config path: %s', args.configFile);
 logger.info('Data path: %s', args.dataDir);
 logger.info('Test Mode: %s', args.test);

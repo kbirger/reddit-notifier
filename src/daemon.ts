@@ -1,4 +1,4 @@
-import Logger from 'bunyan';
+import { Logger } from 'winston';
 
 let timer;
 let cycle_stop = false;
