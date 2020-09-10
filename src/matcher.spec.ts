@@ -21,7 +21,7 @@ describe('matcher', () => {
             equals: 'bar'
           }]
         }
-      }
+      };
 
       // Assert
       expect(matchPost(post, matchSpec)).toBeTruthy();
@@ -45,7 +45,7 @@ describe('matcher', () => {
             equals: 'bar'
           }]
         }
-      }
+      };
 
       // Assert
       expect(matchPost(post, matchSpec)).toBeFalsy();
@@ -57,7 +57,7 @@ describe('matcher', () => {
       expect(() => hasMatch('foo', {
         any: [{
 
-        } as any]
+        }]
       })).toThrowError();
     });
 
@@ -74,7 +74,7 @@ describe('matcher', () => {
         })).toBeTruthy();
       });
 
-      it(`should pass when matches single`, () => {
+      it('should pass when matches single', () => {
         expect(hasMatch(6, {
           any: [{
             greaterThan: 5,
@@ -82,7 +82,7 @@ describe('matcher', () => {
         })).toBeTruthy();
       });
 
-      it(`should pass when matches multiple`, () => {
+      it('should pass when matches multiple', () => {
         expect(hasMatch(6, {
           any: [{
             greaterThan: 5,
@@ -93,7 +93,7 @@ describe('matcher', () => {
         })).toBeTruthy();
       });
 
-      it(`should pass when matches one but does not match another`, () => {
+      it('should pass when matches one but does not match another', () => {
         expect(hasMatch(6, {
           any: [{
             greaterThan: 5,
@@ -104,7 +104,7 @@ describe('matcher', () => {
         })).toBeTruthy();
       });
 
-      it(`should pass when matches multi-match`, () => {
+      it('should pass when matches multi-match', () => {
         expect(hasMatch(6, {
           any: [{
             greaterThan: 5,
@@ -113,7 +113,7 @@ describe('matcher', () => {
         })).toBeTruthy();
       });
 
-      it(`should fail when matches one, but matches a 'none' clause`, () => {
+      it('should fail when matches one, but matches a \'none\' clause', () => {
         expect(hasMatch(6, {
           any: [{
             greaterThan: 5,
@@ -126,7 +126,7 @@ describe('matcher', () => {
     });
 
     describe('none', () => {
-      it(`should fail when matches single`, () => {
+      it('should fail when matches single', () => {
         expect(hasMatch(6, {
           none: [{
             greaterThan: 5,
@@ -134,7 +134,7 @@ describe('matcher', () => {
         })).toBeFalsy();
       });
 
-      it(`should fail when matches multiple`, () => {
+      it('should fail when matches multiple', () => {
         expect(hasMatch(6, {
           none: [{
             greaterThan: 5,
@@ -145,7 +145,7 @@ describe('matcher', () => {
         })).toBeFalsy();
       });
 
-      it(`should fail when matches one but does not match another`, () => {
+      it('should fail when matches one but does not match another', () => {
         expect(hasMatch(6, {
           none: [{
             greaterThan: 5,
@@ -156,7 +156,7 @@ describe('matcher', () => {
         })).toBeFalsy();
       });
 
-      it(`should fail when matches multi-match`, () => {
+      it('should fail when matches multi-match', () => {
         expect(hasMatch(6, {
           none: [{
             greaterThan: 5,

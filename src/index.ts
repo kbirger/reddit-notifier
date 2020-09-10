@@ -8,40 +8,13 @@ import { readConfig, ensureConfigExists } from './config-reader';
 import { parseArguments } from './args-parser';
 import { NoopNotifier } from './noop-notifier';
 import { mkdir } from 'shelljs';
-import * as winston from 'winston';
-import 'winston-daily-rotate-file';
-import path from 'path';
-import { consoleFormat } from './log-format';
+import * as logging from './logger';
+
 const args = parseArguments(process.argv);
+logging.init(args.dataDir);
 
 
-
-const logger = winston.createLogger({
-  level: 'info',
-  format: winston.format.combine(
-    winston.format.errors({ stack: true }),
-    winston.format.splat(),
-  ),
-  transports: [
-    new winston.transports.DailyRotateFile({
-      filename: path.join(args.dataDir, 'reddit-notifier-%DATE%.log'),
-      datePattern: 'YYYY-MM-DD',
-      maxSize: '1m',
-      maxFiles: '3d',
-      format: winston.format.combine(
-        winston.format.timestamp(),
-        winston.format.json(),
-      )
-    }),
-    new winston.transports.Console({
-      format: winston.format.combine(
-        winston.format.colorize(),
-        consoleFormat()
-      )
-    })
-  ],
-});
-
+const logger = logging.getLogger();
 logger.info('Config path: %s', args.configFile);
 logger.info('Data path: %s', args.dataDir);
 logger.info('Test Mode: %s', args.test);
@@ -73,6 +46,6 @@ process.on('exit', () => notifier.pushMessage(c.ApplicationName, 'Exiting'));
 
 process.on('SIGTERM', function () {
   logger.info('Received STOP. Closing');
-  notifier.pushMessage(c.ApplicationName, 'Received STOP. Closing')
+  notifier.pushMessage(c.ApplicationName, 'Received STOP. Closing');
   daemon.stop();
 });

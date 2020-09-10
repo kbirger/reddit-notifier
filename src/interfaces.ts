@@ -1,6 +1,3 @@
-
-
-
 export interface IAlertTracker {
   getLastAlerted(): number;
   setLastAlerted(utcTicks: number): void;
@@ -13,19 +10,19 @@ export interface IMonitor {
 }
 
 export interface IPushbulletNotifier {
-  pushMessage(noteBody: string): Promise<any>;
-  pushMessage(noteTitle: string, noteBody: string): Promise<any>;
+  pushMessage(noteBody: string): Promise<unknown>;
+  pushMessage(noteTitle: string, noteBody: string): Promise<unknown>;
 }
 
 export type MatchSpec = {
   [key in keyof PostJson]?: FieldMatchSpec
-}
+};
 
 export interface FieldMatchSpecClause {
   matches?: string;
   greaterThan?: number;
   lessThan?: number;
-  equals?: any;
+  equals?: string | boolean | number;
 }
 
 
@@ -50,9 +47,10 @@ export interface MonitorConfiguration {
   subreddit: string;
   matches: MatchSpec;
 }
+// eslint-disable-next-line @typescript-eslint/ban-types
 export type PushBulletDeviceIdConfiguration = string | string[] | {};
 
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface PostJson {
   approved_at_utc: string,
   subreddit: string,
@@ -157,3 +155,5 @@ export interface PostJson {
   media: string,
   is_video: boolean
 }
+
+/* eslint-enable @typescript-eslint/no-explicit-any */

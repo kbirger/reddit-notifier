@@ -8,7 +8,7 @@ export class AlertTracker {
   private get filePath() {
     return path.join(this.dataDir, 'last-alert');
   }
-  getLastAlerted() {
+  getLastAlerted(): number {
     if (fs.existsSync('last-alert')) {
       const data = fs.readFileSync(this.filePath, 'utf8');
       return parseInt(data);
@@ -17,11 +17,11 @@ export class AlertTracker {
     return 0;
   }
 
-  setLastAlerted(utcTicks: number) {
+  setLastAlerted(utcTicks: number): void {
     fs.writeFileSync(this.filePath, utcTicks.toString(), 'utf8');
   }
 
-  isMoreRecentThanLastAlert(utcTicks: number) {
+  isMoreRecentThanLastAlert(utcTicks: number): boolean {
     return utcTicks > this.getLastAlerted();
   }
 }

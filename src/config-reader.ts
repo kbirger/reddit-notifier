@@ -21,7 +21,7 @@ export function readConfig(configPath: string): Config {
 export function ensureConfigExists(configPath: string): boolean {
   if (!fs.existsSync(configPath)) {
     mkdir('-p', path.dirname(configPath));
-    fs.writeFileSync(configPath, getDefaultConfig())
+    fs.writeFileSync(configPath, getDefaultConfig());
 
     return true;
   }
@@ -33,8 +33,8 @@ export function ensureConfigExists(configPath: string): boolean {
 function getDefaultConfig() {
   const config = {
 
-    pushbulletApiKey: "ENTER VALUE",
-    pushbulletDeviceId: "ENTER VALUE"
+    pushbulletApiKey: 'ENTER VALUE',
+    pushbulletDeviceId: 'ENTER VALUE'
   };
 
   return JSON.stringify(config, null, 2);

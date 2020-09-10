@@ -6,7 +6,7 @@ export class PushbulletNotifier implements IPushbulletNotifier {
   private readonly pusher: typeof import('pushbullet');
   private readonly encryptionKey: string | null = null;
 
-  private encryptionEnabled: boolean = false;
+  private encryptionEnabled = false;
   constructor(private readonly config: PushBulletConfiguration) {
     this.pusher = new PushBullet(config.apiKey);
     if (config.encryptionKeyBase64) {
@@ -14,10 +14,10 @@ export class PushbulletNotifier implements IPushbulletNotifier {
     }
   }
 
-  pushMessage(noteBody: string): Promise<any>;
-  pushMessage(noteTitle: string, noteBody: string): Promise<any>;
+  pushMessage(noteBody: string): Promise<unknown>;
+  pushMessage(noteTitle: string, noteBody: string): Promise<unknown>;
 
-  pushMessage(noteTitle: string, noteBody?: string): Promise<any> {
+  pushMessage(noteTitle: string, noteBody?: string): Promise<unknown> {
     if (noteBody === undefined) {
       noteBody = noteTitle;
       noteTitle = c.ApplicationName;
@@ -35,8 +35,8 @@ export class PushbulletNotifier implements IPushbulletNotifier {
               .then((result) => resolve(result))
               .catch((err) => reject(err));
           }
-        })
-      })
+        });
+      });
     }
 
     if (Array.isArray(this.config.deviceId)) {
@@ -45,11 +45,13 @@ export class PushbulletNotifier implements IPushbulletNotifier {
     return this.pushSingle(noteTitle, noteBody, this.config.deviceId);
   }
 
-  pushMulti(noteTitle: string, noteBody: string, deviceId: string[]) {
-    const promises = deviceId.map(i => this.pushSingle(noteTitle, noteBody, deviceId));
+  private pushMulti(noteTitle: string, noteBody: string, deviceId: string[]) {
+    const promises = deviceId.map(i => this.pushSingle(noteTitle, noteBody, i));
     return Promise.allSettled(promises);
   }
-  pushSingle(noteTitle: string, noteBody: string, deviceId: string | {}) {
+
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  private pushSingle(noteTitle: string, noteBody: string, deviceId: string | {}) {
     return new Promise((resolve, reject) => {
       return this.pusher.note(
         deviceId,
