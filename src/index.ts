@@ -28,8 +28,8 @@ const logger = winston.createLogger({
       maxSize: '1m',
       maxFiles: '3d',
       format: winston.format.combine(
-        winston.format.json(),
         winston.format.timestamp(),
+        winston.format.json(),
       )
     }),
     new winston.transports.Console({
