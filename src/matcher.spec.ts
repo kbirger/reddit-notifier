@@ -1,7 +1,12 @@
-import { hasMatch, matchPost } from './matcher';
+import { Matcher } from './matcher';
 import { PostJson } from './interfaces';
+import { Logger } from 'winston';
 
 describe('matcher', () => {
+  let matcher: Matcher;
+  beforeEach(() => {
+    matcher = new Matcher({ log: jest.fn(), info: jest.fn(), debug: jest.fn() } as unknown as Logger);
+  });
   describe('matchPost', () => {
     it('shall match multiple fields', () => {
       // Arrange
@@ -24,7 +29,7 @@ describe('matcher', () => {
       };
 
       // Assert
-      expect(matchPost(post, matchSpec)).toBeTruthy();
+      expect(matcher.matchPost(post, matchSpec)).toBeTruthy();
     });
 
     it('shall not match multiple fields', () => {
@@ -48,13 +53,13 @@ describe('matcher', () => {
       };
 
       // Assert
-      expect(matchPost(post, matchSpec)).toBeFalsy();
+      expect(matcher.matchPost(post, matchSpec)).toBeFalsy();
     });
   });
 
   describe('hasMatch', () => {
     it('should fail when clause does not match', () => {
-      expect(() => hasMatch('foo', {
+      expect(() => matcher.hasMatch('foo', {
         any: [{
 
         }]
@@ -63,11 +68,11 @@ describe('matcher', () => {
 
     describe('any', () => {
       it('should pass with no condition', () => {
-        expect(hasMatch(6, {})).toBeTruthy();
+        expect(matcher.hasMatch(6, {})).toBeTruthy();
       });
 
       it('should pass with no any condition', () => {
-        expect(hasMatch(6, {
+        expect(matcher.hasMatch(6, {
           none: [{
             equals: 5
           }]
@@ -75,7 +80,7 @@ describe('matcher', () => {
       });
 
       it('should pass when matches single', () => {
-        expect(hasMatch(6, {
+        expect(matcher.hasMatch(6, {
           any: [{
             greaterThan: 5,
           }]
@@ -83,7 +88,7 @@ describe('matcher', () => {
       });
 
       it('should pass when matches multiple', () => {
-        expect(hasMatch(6, {
+        expect(matcher.hasMatch(6, {
           any: [{
             greaterThan: 5,
           },
@@ -94,7 +99,7 @@ describe('matcher', () => {
       });
 
       it('should pass when matches one but does not match another', () => {
-        expect(hasMatch(6, {
+        expect(matcher.hasMatch(6, {
           any: [{
             greaterThan: 5,
           },
@@ -105,7 +110,7 @@ describe('matcher', () => {
       });
 
       it('should pass when matches multi-match', () => {
-        expect(hasMatch(6, {
+        expect(matcher.hasMatch(6, {
           any: [{
             greaterThan: 5,
             lessThan: 99
@@ -114,7 +119,7 @@ describe('matcher', () => {
       });
 
       it('should fail when matches one, but matches a \'none\' clause', () => {
-        expect(hasMatch(6, {
+        expect(matcher.hasMatch(6, {
           any: [{
             greaterThan: 5,
           }],
@@ -127,7 +132,7 @@ describe('matcher', () => {
 
     describe('none', () => {
       it('should fail when matches single', () => {
-        expect(hasMatch(6, {
+        expect(matcher.hasMatch(6, {
           none: [{
             greaterThan: 5,
           }]
@@ -135,7 +140,7 @@ describe('matcher', () => {
       });
 
       it('should fail when matches multiple', () => {
-        expect(hasMatch(6, {
+        expect(matcher.hasMatch(6, {
           none: [{
             greaterThan: 5,
           },
@@ -146,7 +151,7 @@ describe('matcher', () => {
       });
 
       it('should fail when matches one but does not match another', () => {
-        expect(hasMatch(6, {
+        expect(matcher.hasMatch(6, {
           none: [{
             greaterThan: 5,
           },
@@ -157,7 +162,7 @@ describe('matcher', () => {
       });
 
       it('should fail when matches multi-match', () => {
-        expect(hasMatch(6, {
+        expect(matcher.hasMatch(6, {
           none: [{
             greaterThan: 5,
             lessThan: 99
@@ -168,7 +173,7 @@ describe('matcher', () => {
 
     describe('equal', () => {
       it('should pass when equal', () => {
-        expect(hasMatch(5, {
+        expect(matcher.hasMatch(5, {
           any: [{
             equals: 5
           }]
@@ -176,7 +181,7 @@ describe('matcher', () => {
       });
 
       it('should fail when not equal', () => {
-        expect(hasMatch(6, {
+        expect(matcher.hasMatch(6, {
           any: [{
             equals: 5
           }]
@@ -186,7 +191,7 @@ describe('matcher', () => {
 
     describe('greaterThan', () => {
       it('should pass when matches', () => {
-        expect(hasMatch(6, {
+        expect(matcher.hasMatch(6, {
           any: [{
             greaterThan: 5
           }]
@@ -194,7 +199,7 @@ describe('matcher', () => {
       });
 
       it('should fail when does not match', () => {
-        expect(hasMatch(6, {
+        expect(matcher.hasMatch(6, {
           any: [{
             greaterThan: 7
           }]
@@ -204,7 +209,7 @@ describe('matcher', () => {
 
     describe('lessThan', () => {
       it('should pass when matches', () => {
-        expect(hasMatch(4, {
+        expect(matcher.hasMatch(4, {
           any: [{
             lessThan: 5
           }]
@@ -212,7 +217,7 @@ describe('matcher', () => {
       });
 
       it('should fail when does not match', () => {
-        expect(hasMatch(6, {
+        expect(matcher.hasMatch(6, {
           any: [{
             lessThan: 5
           }]
@@ -222,7 +227,7 @@ describe('matcher', () => {
 
     describe('match', () => {
       it('should pass when matches', () => {
-        expect(hasMatch('foo', {
+        expect(matcher.hasMatch('foo', {
           any: [{
             matches: 'f.o'
           }]
@@ -230,7 +235,7 @@ describe('matcher', () => {
       });
 
       it('should fail when does not match', () => {
-        expect(hasMatch('bar', {
+        expect(matcher.hasMatch('bar', {
           any: [{
             matches: 'f.o'
           }]
