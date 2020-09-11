@@ -1,24 +1,17 @@
 import { Logger } from 'winston';
 
 let timer;
-let cycle_stop = false;
 const INTERVAL = 1000;
 
 function cycle(onTick: () => void, logger: Logger) {
   timer = setTimeout(function () {
-    if (!cycle_stop) {
-      onTick();
-      cycle(onTick, logger);
-    } else {
-      logger.info('exiting with 1');
-      process.exit(1);
-    }
+    onTick();
+    cycle(onTick, logger);
   }, INTERVAL);
 }
 
 
 export function stop(): void {
-  cycle_stop = true;
   clearTimeout(timer);
 }
 
