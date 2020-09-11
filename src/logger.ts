@@ -19,7 +19,7 @@ export function init(dataDir: string): void {
 
 function createLogger(dataDir: string) {
   return winston.createLogger({
-    level: 'info',
+    level: 'debug',
     format: winston.format.combine(
       winston.format.errors({ stack: true }),
       winston.format.splat(),
@@ -36,6 +36,7 @@ function createLogger(dataDir: string) {
         )
       }),
       new winston.transports.Console({
+        level: 'info',
         format: winston.format.combine(
           winston.format.colorize(),
           consoleFormat()
