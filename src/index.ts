@@ -9,6 +9,7 @@ import { parseArguments } from './args-parser';
 import { NoopNotifier } from './noop-notifier';
 import { mkdir } from 'shelljs';
 import * as logging from './logger';
+import { Matcher } from './matcher';
 
 const args = parseArguments(process.argv);
 logging.init(args.dataDir);
@@ -33,8 +34,9 @@ const notifier = args.test ?
   new NoopNotifier(logger) :
   new PushbulletNotifier(config.pushbullet);
 
+const matcher = new Matcher(logger);
 const tracker = new AlertTracker(args.dataDir);
-const monitor = new Monitor(config.monitor, notifier, tracker, logger);
+const monitor = new Monitor(config.monitor, notifier, tracker, matcher, logger);
 
 logger.info('Starting...');
 notifier.pushMessage(c.ApplicationName, 'Starting');

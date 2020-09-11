@@ -1,6 +1,6 @@
 import RedditStream from 'reddit-stream';
 import { IPushbulletNotifier, IAlertTracker, MonitorConfiguration, PostJson } from './interfaces';
-import { matchPost } from './matcher';
+import { Matcher } from './matcher';
 import { Logger } from 'winston';
 
 export class Monitor {
@@ -10,6 +10,7 @@ export class Monitor {
     private readonly config: MonitorConfiguration,
     private readonly notifier: IPushbulletNotifier,
     private readonly tracker: IAlertTracker,
+    private readonly matcher: Matcher,
     private readonly logger: Logger) { }
 
   start(): void {
@@ -55,7 +56,7 @@ export class Monitor {
   }
 
   private isValid(post: PostJson) {
-    return matchPost(post, this.config.matches);
+    return this.matcher.matchPost(post, this.config.matches);
   }
 }
 
