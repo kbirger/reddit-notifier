@@ -1,3 +1,6 @@
+/* istanbul ignore file */
+/* there is nothing to test here */
+
 import { Logger } from 'winston';
 
 let timer;

@@ -18,6 +18,7 @@ interface CommandlineArguments {
   test: boolean;
 }
 export function parseArguments(args?: string[]): CommandlineArguments {
+  /* istanbul ignore next */
   args = args ?? process.argv;
   program.parse(args);
   return {
@@ -38,6 +39,7 @@ function readPackageVersion() {
 
     return data.version;
   } catch {
+    /* istanbul ignore next */
     return '0.0.0';
   }
 }

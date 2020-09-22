@@ -14,9 +14,13 @@ export interface IPushbulletNotifier {
   pushMessage(noteTitle: string, noteBody: string): Promise<unknown>;
 }
 
-export type MatchSpec = {
+export type MatchSpec = MatchSpecObject | MatchSpecFunction;
+
+export type MatchSpecObject = {
   [key in keyof PostJson]?: FieldMatchSpec
 };
+
+export type MatchSpecFunction = (post: PostJson) => boolean;
 
 export interface FieldMatchSpecClause {
   matches?: string;
