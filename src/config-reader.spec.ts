@@ -76,7 +76,7 @@ describe('config-reader', () => {
   });
 
   describe('ensureConfigExists', () => {
-    it('shall return true when config is missing', () => {
+    it('should return true when config is missing', () => {
       // Arrange
       jest.spyOn(fs, 'existsSync').mockReturnValue(false);
 
@@ -85,7 +85,7 @@ describe('config-reader', () => {
       expect(shell.mkdir).toHaveBeenCalledWith('-p', '.');
     });
 
-    it('shall return false when config exists', () => {
+    it('should return false when config exists', () => {
       // Arrange
       jest.spyOn(fs, 'existsSync').mockReturnValue(true);
 

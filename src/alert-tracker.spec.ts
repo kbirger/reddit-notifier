@@ -63,7 +63,7 @@ describe('AlertTracker', () => {
   });
 
   describe('isMoreRecentThanLastAlert', () => {
-    it('shall return true when given time is more recent', () => {
+    it('should return true when given time is more recent', () => {
       // Arrange 
       const tracker = new AlertTracker('.');
       readFileSyncSpy.mockReturnValue('5');
@@ -76,7 +76,7 @@ describe('AlertTracker', () => {
       expect(result).toEqual(true);
     });
 
-    it('shall return false when given time is not more recent', () => {
+    it('should return false when given time is not more recent', () => {
       // Arrange 
       const tracker = new AlertTracker('.');
       readFileSyncSpy.mockReturnValue('5');

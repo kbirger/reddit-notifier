@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import * as winston from 'winston';
 import 'winston-daily-rotate-file';
 import { consoleFormat } from './log-format';
