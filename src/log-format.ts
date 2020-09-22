@@ -6,6 +6,7 @@ export const consoleFormat = winston.format(info => {
     level: undefined,
     message: undefined,
     splat: undefined,
+    padding: undefined,
     timestamp: undefined
   });
 

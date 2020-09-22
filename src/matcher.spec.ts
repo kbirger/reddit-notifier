@@ -8,7 +8,7 @@ describe('matcher', () => {
     matcher = new Matcher({ log: jest.fn(), info: jest.fn(), debug: jest.fn() } as unknown as Logger);
   });
   describe('matchPost', () => {
-    it('shall match against a function matcher', () => {
+    it('should match against a function matcher', () => {
       // Arrange
       const post: PostJson = {
         title: 'foo',
@@ -21,7 +21,7 @@ describe('matcher', () => {
       expect(matcher.matchPost(post, matchSpec)).toBeTruthy();
     });
 
-    it('shall match against a function matcher when matcher returns false', () => {
+    it('should match against a function matcher when matcher returns false', () => {
       // Arrange
       const post: PostJson = {
         title: 'foo',
@@ -34,7 +34,7 @@ describe('matcher', () => {
       expect(matcher.matchPost(post, matchSpec)).toBeFalsy();
     });
 
-    it('shall match multiple fields', () => {
+    it('should match multiple fields', () => {
       // Arrange
       const post: PostJson = {
         title: 'foo',
@@ -58,7 +58,7 @@ describe('matcher', () => {
       expect(matcher.matchPost(post, matchSpec)).toBeTruthy();
     });
 
-    it('shall not match multiple fields', () => {
+    it('should not match multiple fields', () => {
       // Arrange
       const post: PostJson = {
         title: 'foo',
@@ -81,6 +81,7 @@ describe('matcher', () => {
       // Assert
       expect(matcher.matchPost(post, matchSpec)).toBeFalsy();
     });
+
   });
 
   describe('hasMatch', () => {
@@ -231,6 +232,11 @@ describe('matcher', () => {
           }]
         })).toBeFalsy();
       });
+
+      it('should throw when greaterThan clause gets a string', () => {
+        expect(() => matcher.hasMatch('123', { any: [{ greaterThan: 123 }] }))
+          .toThrowError('Number expected for value. Got: 123');
+      });
     });
 
     describe('lessThan', () => {
@@ -249,6 +255,11 @@ describe('matcher', () => {
           }]
         })).toBeFalsy();
       });
+
+      it('should throw when lessThan clause gets a string', () => {
+        expect(() => matcher.hasMatch('123', { any: [{ lessThan: 123 }] }))
+          .toThrowError('Number expected for value. Got: 123');
+      });
     });
 
     describe('match', () => {
@@ -266,6 +277,11 @@ describe('matcher', () => {
             matches: 'f.o'
           }]
         })).toBeFalsy();
+      });
+
+      it('should throw when matches clause gets a number', () => {
+        expect(() => matcher.hasMatch(123, { any: [{ matches: '123' as any }] }))
+          .toThrowError('String expected for value. Got: 123');
       });
     });
   });
