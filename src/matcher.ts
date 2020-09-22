@@ -42,17 +42,25 @@ const NA = Symbol.for('N/A');
 export class Matcher {
   constructor(private readonly logger: winston.Logger) { }
 
-  matchPost(post: PostJson, config: MatchSpec): boolean {
-    for (const matchField of Object.keys(config)) {
-      const value = post[matchField];
-      const matchSpec = config[matchField];
-      if (!this.hasMatch(value, matchSpec)) {
-        return false;
-      }
-    }
+  matchPost(post: PostJson, matchSpec: MatchSpec): boolean {
+    if (typeof matchSpec === 'function') {
+      return matchSpec(post);
+    } else {
+      const keys = Object.keys(matchSpec);
 
-    return true;
+      for (const matchField of keys) {
+        const value = post[matchField];
+        const clause = matchSpec[matchField];
+
+        if (!this.hasMatch(value, clause)) {
+          return false;
+        }
+      }
+
+      return true;
+    }
   }
+
   hasMatch(value: unknown, matchSpec: FieldMatchSpec): boolean {
     for (const noneItem of matchSpec.none ?? []) {
       if (this.itemMatches(value, noneItem)) {

@@ -54,7 +54,36 @@ Below is a sample configuration
 - monitor.matches.<FIELD>.any: to be notified of a post, at least one item in this array must match
 - monitor.matches.<FIELD>.none: to be notified of a post, at no item in this array must match
 
+### JS Configuration
+You may specify your configuration as an ES6 module
+
+```js
+module.exports = {
+  "pushbullet": {
+    "apiKey": "",
+    "deviceId": "",
+    "encryptionKeyBase64": ""
+  },
+  "monitor": {
+    "subreddit": "test",
+    "matches": {
+      "title": {
+        "any": [
+          {
+            "matches": "^reddit-notifier"
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
 ## Matchers
+A configuration may be specified as either a JSON or a JS file. Either one can specify matchers as an object, but a JS configuration can also specify a matcher as a function.
+
+
+### Object matchers
 monitor.matches.<FIELD>.any and monitor.matches.<FIELD>.none follow the same specification. They may have one or more keys from the following set:
 
 - matches: regular expression match on the field (case insensitive)
@@ -65,9 +94,9 @@ monitor.matches.<FIELD>.any and monitor.matches.<FIELD>.none follow the same spe
 The implication with this design is that you may specify multiple criteria for multiple fields. In order to match, a post must match on ALL of the fields specified under `monitor.matches` (works like a logical AND), but each field may have a number of OR conditions (each item in ANY). Every clause under `monitor.matches.<FIELD>.any[#]` must be matched (see second example)
 
 
-### Examples
+#### Examples
 
-#### Title field must start with 'hello'
+##### Title field must start with 'hello'
 ```json 
 {
   "title": {
@@ -79,7 +108,7 @@ The implication with this design is that you may specify multiple criteria for m
 
 ```
 
-#### Created field must be greater than 2, but less than 5
+##### Created field must be greater than 2, but less than 5
 ```json 
 {
   "created": {
@@ -91,7 +120,7 @@ The implication with this design is that you may specify multiple criteria for m
 }
 ```
 
-#### Created field must be greater than 2, but less than 5, and not 3
+##### Created field must be greater than 2, but less than 5, and not 3
 ```json
 {
   "created": {
@@ -107,7 +136,7 @@ The implication with this design is that you may specify multiple criteria for m
 ```
 
 
-### Author must be Bob, and title must start with hello''
+##### Author must be Bob, and title must start with hello''
 ```json
 {
   "title": {
@@ -119,5 +148,15 @@ The implication with this design is that you may specify multiple criteria for m
     "any": [{
       "equals": "Bob"
     }]
+  }
+}
+```
+
+### Function matchers
+
+```js
+{ 
+  "title": function(post) {
+    return post.startsWith('hello');
   }
 }

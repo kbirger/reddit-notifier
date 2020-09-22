@@ -1,0 +1,31 @@
+{
+  "pushbullet": {
+    "apiKey": "VALUE",
+    "deviceId": "VALUE",
+    "encryptionKeyBase64": "VALUE"
+  },
+  "monitor": {
+    "subreddit": "test",
+    "matches": {
+      "title": {
+        "any": [
+          {
+            "matches": "^foo"
+          }
+        ],
+        "none": [
+          {
+            "matches": ".*bar.*"
+          }
+        ]
+      },
+      "author": {
+        "none": [
+          {
+            "equals": "johndoe"
+          }
+        ]
+      }
+    }
+  }
+}

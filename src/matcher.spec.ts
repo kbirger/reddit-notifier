@@ -8,6 +8,32 @@ describe('matcher', () => {
     matcher = new Matcher({ log: jest.fn(), info: jest.fn(), debug: jest.fn() } as unknown as Logger);
   });
   describe('matchPost', () => {
+    it('shall match against a function matcher', () => {
+      // Arrange
+      const post: PostJson = {
+        title: 'foo',
+        link_flair_text: 'bar'
+      } as PostJson;
+
+      const matchSpec = () => true;
+
+      // Assert
+      expect(matcher.matchPost(post, matchSpec)).toBeTruthy();
+    });
+
+    it('shall match against a function matcher when matcher returns false', () => {
+      // Arrange
+      const post: PostJson = {
+        title: 'foo',
+        link_flair_text: 'bar'
+      } as PostJson;
+
+      const matchSpec = () => false;
+
+      // Assert
+      expect(matcher.matchPost(post, matchSpec)).toBeFalsy();
+    });
+
     it('shall match multiple fields', () => {
       // Arrange
       const post: PostJson = {
