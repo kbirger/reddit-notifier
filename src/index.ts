@@ -19,6 +19,7 @@ const logger = logging.getLogger();
 logger.info('Config path: %s', args.configFile);
 logger.info('Data path: %s', args.dataDir);
 logger.info('Test Mode: %s', args.test);
+args.test = true;
 
 const created = ensureConfigExists(args.configFile);
 if (created) {

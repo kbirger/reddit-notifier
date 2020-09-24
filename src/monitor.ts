@@ -2,10 +2,13 @@ import RedditStream from 'reddit-stream';
 import { IPushbulletNotifier, IAlertTracker, MonitorConfiguration, PostJson } from './interfaces';
 import { Matcher } from './matcher';
 import { Logger } from 'winston';
+import SnooStream from 'snoostream';
+import { ApplicationName } from './constants';
+import { EventEmitter } from 'events';
 
 export class Monitor {
-  private stream: typeof import('reddit-stream');
-
+  private snooStream?: SnooStream;
+  private stream?: EventEmitter;
   constructor(
     private readonly config: MonitorConfiguration,
     private readonly notifier: IPushbulletNotifier,
@@ -14,11 +17,16 @@ export class Monitor {
     private readonly logger: Logger) { }
 
   start(): void {
-    this.stream = new RedditStream('posts', this.config.subreddit);
-    this.stream.start();
-    this.stream.on('error', (err) => this.logger.error(err));
 
-    this.stream.on('new', (posts: { data: PostJson }[]) => {
+    this.snooStream = new SnooStream({ userAgent: ApplicationName });
+    this.stream = this.snooStream.submissionStream(this.config.subreddit, {
+      after: undefined // todo: track last submission viewed
+    });
+    // this.stream = new RedditStream('posts', this.config.subreddit);
+    // this.snooStream.start();
+    this.stream?.on('error', (err) => this.logger.error(err));
+
+    this.stream?.on('post', (posts: { data: PostJson }[]) => {
       this.logger.info('got %s posts', posts.length);
       posts
         .map(post2Json)
@@ -38,10 +46,11 @@ export class Monitor {
   }
 
   verifyRunning(): void {
-    if (!this.stream.is_running) {
-      this.logger.info('stream not running. restarting.');
-      this.stream.start();
-    }
+
+    // if (!this.snooStream.is_running) {
+    //   this.logger.info('stream not running. restarting.');
+    //   this.snooStream.start();
+    // }
   }
 
   private notify(post: PostJson) {
