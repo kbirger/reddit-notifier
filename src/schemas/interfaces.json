@@ -1,0 +1,429 @@
+{
+  "$ref": "#/definitions/Config",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "Config": {
+      "additionalProperties": false,
+      "properties": {
+        "monitor": {
+          "$ref": "#/definitions/MonitorConfiguration"
+        },
+        "pushbullet": {
+          "$ref": "#/definitions/PushBulletConfiguration"
+        }
+      },
+      "required": [
+        "pushbullet",
+        "monitor"
+      ],
+      "type": "object"
+    },
+    "FieldMatchSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "any": {
+          "items": {
+            "$ref": "#/definitions/FieldMatchSpecClause"
+          },
+          "type": "array"
+        },
+        "none": {
+          "items": {
+            "$ref": "#/definitions/FieldMatchSpecClause"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "FieldMatchSpecClause": {
+      "additionalProperties": false,
+      "properties": {
+        "equals": {
+          "type": [
+            "string",
+            "boolean",
+            "number"
+          ]
+        },
+        "greaterThan": {
+          "type": "number"
+        },
+        "lessThan": {
+          "type": "number"
+        },
+        "matches": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "MatchSpec": {
+      "$ref": "#/definitions/MatchSpecObject"
+    },
+    "MatchSpecObject": {
+      "additionalProperties": false,
+      "properties": {
+        "all_awardings": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "allow_live_comments": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "approved_at_utc": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "approved_by": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "archived": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "author": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "author_flair_background_color": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "author_flair_css_class": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "author_flair_richtext": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "author_flair_template_id": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "author_flair_text": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "author_flair_text_color": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "author_flair_type": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "author_fullname": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "author_patreon_flair": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "author_premium": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "awarders": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "banned_at_utc": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "banned_by": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "can_gild": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "can_mod_post": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "category": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "clicked": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "content_categories": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "contest_mode": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "created": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "created_utc": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "discussion_type": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "distinguished": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "domain": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "downs": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "edited": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "gilded": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "gildings": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "hidden": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "hide_score": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "id": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "is_crosspostable": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "is_meta": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "is_original_content": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "is_reddit_media_domain": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "is_robot_indexable": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "is_self": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "is_video": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "likes": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "link_flair_background_color": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "link_flair_css_class": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "link_flair_richtext": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "link_flair_text": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "link_flair_text_color": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "link_flair_type": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "locked": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "media": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "media_embed": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "media_only": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "mod_note": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "mod_reason_by": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "mod_reason_title": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "mod_reports": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "name": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "no_follow": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "num_comments": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "num_crossposts": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "num_reports": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "over_number": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "parent_whitelist_status": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "permalink": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "pinned": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "pwls": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "quarantine": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "removal_reason": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "removed_by": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "removed_by_category": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "report_reasons": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "saved": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "score": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "secure_media": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "secure_media_embed": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "selftext": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "selftext_html": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "send_replies": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "spoiler": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "stickied": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "subreddit": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "subreddit_id": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "subreddit_name_prefixed": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "subreddit_subscribers": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "subreddit_type": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "suggested_sort": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "thumbnail": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "title": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "top_awarded_type": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "total_awards_received": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "treatment_tags": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "ups": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "upvote_ratio": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "url": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "user_reports": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "view_count": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "visited": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "whitelist_status": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        },
+        "wls": {
+          "$ref": "#/definitions/FieldMatchSpec"
+        }
+      },
+      "type": "object"
+    },
+    "MonitorConfiguration": {
+      "additionalProperties": false,
+      "properties": {
+        "matches": {
+          "$ref": "#/definitions/MatchSpec"
+        },
+        "subreddit": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "subreddit",
+        "matches"
+      ],
+      "type": "object"
+    },
+    "PushBulletConfiguration": {
+      "additionalProperties": false,
+      "properties": {
+        "apiKey": {
+          "type": "string"
+        },
+        "deviceId": {
+          "$ref": "#/definitions/PushBulletDeviceIdConfiguration"
+        },
+        "encryptionKeyBase64": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "apiKey",
+        "deviceId"
+      ],
+      "type": "object"
+    },
+    "PushBulletDeviceIdConfiguration": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "additionalProperties": false,
+          "type": "object"
+        }
+      ]
+    }
+  }
+}

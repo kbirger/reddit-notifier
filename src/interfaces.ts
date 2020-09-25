@@ -14,7 +14,7 @@ export interface IPushbulletNotifier {
   pushMessage(noteTitle: string, noteBody: string): Promise<unknown>;
 }
 
-export type MatchSpec = MatchSpecObject | MatchSpecFunction;
+export type MatchSpec = MatchSpecObject | MatchSpecFunction; // comment MatchSpecFunction to build schemas
 
 export type MatchSpecObject = {
   [key in keyof PostJson]?: FieldMatchSpec

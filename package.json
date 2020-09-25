@@ -12,12 +12,14 @@
     "coveralls": "cat coverage/lcov.info | node_modules/.bin/coveralls",
     "lint": "eslint **/*.ts",
     "build": "tsc",
+    "build:schemas": "ts-json-schema-generator --path ./src/interfaces.ts -t Config -o schemas",
     "test": "jest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ajv": "^6.12.5",
     "commander": "^6.1.0",
     "lodash": "^4.17.20",
     "pushbullet": "^2.4.0",
@@ -44,6 +46,8 @@
     "jest": "^26.4.2",
     "jest-stare": "^2.2.0",
     "rimraf": "^3.0.2",
-    "ts-node": "^9.0.0"
+    "ts-json-schema-generator": "^0.74.0",
+    "ts-node": "^9.0.0",
+    "typemoq": "^2.1.0"
   }
 }

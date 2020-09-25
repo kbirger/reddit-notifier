@@ -27,6 +27,7 @@ export class Monitor {
           this.logger.info('Matched post: %s, %s, %s, %s', p.title, p.url, p.link_flair_text, p.author);
           if (this.tracker.isMoreRecentThanLastAlert(p.created_utc)) {
             this.tracker.setLastAlerted(p.created_utc);
+
             this.notify(p).catch((err) => this.logger.error('Failed to notify!\n%s', err));
           } else {
             this.logger.info('But it is too old. Last alert time: %s; Post time: %s', this.tracker.getLastAlerted(), p.created_utc);

@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as shell from 'shelljs';
-import { ensureConfigExists, readConfig } from './config-reader';
+import { ensureConfigExists, readConfig, validateConfig } from './config-reader';
 
 jest.mock('fs');
 jest.mock('shelljs', () => {
@@ -28,18 +28,22 @@ describe('config-reader', () => {
 
 
 
-  beforeEach(() => {
-    jest.spyOn(fs, 'readFileSync').mockImplementation((path: string) => {
-      if (path.endsWith('.json')) {
-        return jsonConfig;
-      } else if (path.endsWith('.js')) {
-        return 'foo';
-      } else {
-        throw new Error('unexpected');
-      }
-    });
-  });
   describe('readConfig', () => {
+    beforeEach(() => {
+      jest.spyOn(fs, 'readFileSync').mockImplementation((path: any) => {
+        if (path.includes('schemas')) {
+          return jest.requireActual('fs').readFileSync(path, 'utf8');
+        }
+        if (path.endsWith('.json')) {
+          return jsonConfig;
+        } else if (path.endsWith('.js')) {
+          return 'foo';
+        } else {
+          throw new Error('unexpected');
+        }
+      });
+    });
+
     it('should load json config', () => {
       // Arrange
 
@@ -94,4 +98,39 @@ describe('config-reader', () => {
     });
   });
 
+  describe('validateConfig', () => {
+    beforeEach(() => {
+      const realFs = jest.requireActual('fs');
+      (fs.readFileSync as unknown as jest.SpyInstance).mockImplementation(realFs.readFileSync);
+    });
+    it('should return true for a valid config', () => {
+      // Arrange
+      const config = JSON.parse(jsonConfig);
+
+      // Act
+      const result = validateConfig(config);
+
+      // Assert
+      expect(result.status).toBeTruthy();
+    });
+
+    it('should return false for an invalid config', () => {
+      // Arrange
+      const config = JSON.parse(jsonConfig);
+      config.monitor.matches = ['bad value'];
+
+      // Act
+      const result = validateConfig(config);
+
+      // Assert
+      expect(result.status).toBeFalsy();
+      expect(result.errors).toEqual([{
+        'dataPath': '.monitor.matches',
+        'keyword': 'type',
+        'message': 'should be object',
+        'params': { 'type': 'object' },
+        'schemaPath': '#/type'
+      }]);
+    });
+  });
 });

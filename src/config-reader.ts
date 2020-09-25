@@ -3,6 +3,7 @@ import { Config } from './interfaces';
 import { mkdir } from 'shelljs';
 import * as path from 'path';
 import * as crypto from 'crypto';
+import Ajv from 'ajv';
 
 interface FileData {
   data: Config;
@@ -60,6 +61,8 @@ export function readConfig(configPath: string): { config: Config, hash: string }
     }
   }
 
+  validateConfig(data);
+
   return {
     config:
     {
@@ -83,6 +86,25 @@ export function ensureConfigExists(configPath: string): boolean {
   }
 
   return false;
+}
+
+
+
+//const ajv
+export function validateConfig(config: Config): { status: boolean, errors?: any[] } {
+  const data = fs.readFileSync(path.join(__dirname, 'schemas/interfaces.json'), 'utf8');
+  const schema = JSON.parse(data);
+
+  const schemaId = 'http://reddit-validator.local/schemas/interfaces.json';
+  const ajv = new Ajv({ schemas: [{ ...schema, $id: schemaId }] });
+  // const validate = ajv.getSchema(`${schemaId}#/definitions/Config`);
+
+  // famous last words: as long as nobody puts $async in our schema, this must be a boolean
+  const result = ajv.validate(`${schemaId}#/definitions/Config`, config) as boolean;
+  return {
+    status: result,
+    errors: ajv.errors || undefined
+  };
 }
 
 function getDefaultConfig() {
